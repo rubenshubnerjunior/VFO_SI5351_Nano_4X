@@ -202,9 +202,6 @@ void showDisplay()
   lcd.setCursor(13, 1);
   lcd.print("Khz");
 
-
-
-
 }
 
 //================Ajusta a frequencia do modulo SI5351===========================
@@ -233,10 +230,9 @@ void serviceEncoderInterrupt()
   {
     if (freq < bandStart) return; // Nao decrementa a frequencia
 
-    if (time_now - time2 > 5) // Evita o bounce do encoder
+    if (time_now - time2 > 1) // Evita o bounce do encoder
     {
       freq = freq - freqStep;
-      time2 = time_now;
     }
 
   }
@@ -244,13 +240,13 @@ void serviceEncoderInterrupt()
   {
     if (freq > bandEnd) return; // Nao incrementa a frequencia
 
-    if (time_now - time2 > 5)// Evita o bounce do encoder
+    if (time_now - time2 > 1)// Evita o bounce do encoder
     {
       freq = freq + freqStep;
-      time2 = time_now;
     }
   }
 
+  time2 = time_now;
   lastEncoded = encoded; // Guarda o valor para a proxima alteracao
 
 }
