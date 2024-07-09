@@ -4,6 +4,10 @@
 #include "si5351.h"                        // Si5351 library
 #include <LiquidCrystal_I2C.h>             // LCD library
 
+#define encoder0PinA  2
+#define encoder0PinB  3
+#define tunestep   A2
+
 
 static const uint32_t bandStart = 3000000;     // Inicio da banda em HF (HZ)
 static const uint32_t bandEnd =   30000000;    // Fim da banda HF (HZ)
@@ -26,9 +30,15 @@ const int ptt_out = 12;
 volatile uint32_t oldfreq = 0;
 volatile uint32_t freq = 7000000 ;
 volatile uint32_t freqX4 = 28000000 ; // Frequencia multiplicada por 4 para usar o divisor
+volatile uint32_t freqStep = 1000 ;// Frequencia do Step em HZ
+
+
+volatile int lastEncoded = 0;
 
 const int lcdColumns = 16;
 const int lcdRows = 2;
+
+bool stepEnable = true;
 
 Si5351 si5351;
 
@@ -174,9 +184,16 @@ void showDisplay()
   lcd.setCursor(0, 1);
   lcd.print("                "); // Apaga a linha inferior
   lcd.setCursor(0, 1);
-  lcd.print("Faixa:");
-  lcd.setCursor(7 , 1);
+  lcd.print("FX:");
+  lcd.setCursor(3 , 1);
   lcd.print(faixa); // faixa
+
+  lcd.setCursor(8, 1);
+  lcd.print("STP:");
+  lcd.setCursor(12 , 1);
+  lcd.print(freqStep/1000); // Frequencia do Step
+
+  
 
 }
 
@@ -185,9 +202,68 @@ void SendFrequency()
 {
   freqX4 = freq * 4; // Saida do VFO que serah dividida por 4 para formar a quadratura
   setFaixa(); // Ajusta os filtros conforme a faixa de frequencia ( f1 a f8 )
-  
+
   si5351.set_freq_manual(freqX4 * 100ULL, pll_max * 100ULL, SI5351_CLK0); // *100ULL para converter HZ em 0.01 HZ
   showDisplay();
+}
+
+//====================Interrupcao do Encoder=========================
+void serviceEncoderInterrupt() {
+
+  int signalA = digitalRead(encoder0PinA); //Leitura do pino canal A
+  int signalB = digitalRead(encoder0PinB); //Leitura do pino canal B
+
+  int encoded = (signalB << 1) | signalA;  // converting the 2 pin value to single number
+  int sum  = (lastEncoded << 2) | encoded; // adding it to the previous encoded value
+
+  if (sum == 0b0111 || sum == 0b1110 || sum == 0b1000 || sum == 0b0001)
+  {
+    if(freq < bandStart) return; // Nao decrementa a frequencia
+    freq = freq - freqStep;
+  }
+  if (sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011)
+  {
+    if(freq > bandEnd) return; // Nao incrementa a frequencia
+    freq = freq + freqStep;
+  }
+
+  lastEncoded = encoded; // Guarda o valor para a proxima alteracao
+}
+
+//=================Ajuste do Step================================
+
+void setStep()
+{
+  if (freqStep == 1000)
+  {
+    freqStep = 10000; // Step de 10 Khz
+    stepEnable = true;
+    showDisplay();
+    Serial.println(freqStep);
+    return;
+  }
+  if (freqStep == 10000)
+  {
+    freqStep = 100000; // Step de 100 Khz
+    stepEnable = true;
+    showDisplay();
+    return;
+  }
+  if (freqStep == 100000)
+  {
+    freqStep = 1000000; // Step de 1000 Khz
+    stepEnable = true;
+    showDisplay();
+    return;
+  }
+  if (freqStep == 1000000)
+  {
+    freqStep = 1000; // Step de 1000 Khz
+    stepEnable = true;
+    showDisplay();
+    return;
+  }
+
 }
 
 //=================================setup()======================
@@ -232,11 +308,25 @@ void setup() {
   digitalWrite(f8, LOW);
   digitalWrite(ptt_out, LOW);
 
+  pinMode(encoder0PinA, INPUT);
+  pinMode(encoder0PinB, INPUT);
+  pinMode(tunestep, INPUT);
+
+  attachInterrupt(0, serviceEncoderInterrupt, CHANGE);
+  attachInterrupt(1, serviceEncoderInterrupt, CHANGE);
 }
 //=============================loop()=================
 void loop() {
 
   leSerial();
+
+
+  if (digitalRead(tunestep) == LOW && stepEnable == true) // Botao do encoder clicado
+  {
+    stepEnable = false;
+    setStep();
+    delay(500);
+  }
 
   if (freq != oldfreq)
   {
