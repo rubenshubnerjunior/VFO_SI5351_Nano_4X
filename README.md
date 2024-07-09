@@ -8,7 +8,7 @@
 #### Para maiores detalhes da comunicação Serial com o arduino, pode ser visto com mais detalhes em outro projeto: https://github.com/rubenshubnerjunior/VFO_SI5351_Serial .
 #### Este projeto ainda falta implementar o PTT.
 #### O código fonte do arduino está bem comentado.
-### Sugestões serão bem vindas
+### Sugestões sempre ajudam.
 
 ### 73's  PY2 RHJ
 
