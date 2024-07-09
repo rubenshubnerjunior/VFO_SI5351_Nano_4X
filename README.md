@@ -5,4 +5,5 @@
 #### A faixa de 3 a 30 Mhz pode ser dividida em 08 subfaixas e coloca em nivel HI ou Low as saidas do conector para usar nas comutações dos filtros (vide esquema).
 #### No encoder é possivel definir o Step que será aplicado a frequência de saída em Khz.
 #### O display mostra a frequência de saída bem como a faixa e o Step ajustado.
+#### A comunicação serial com o arduino é o mesmo usado no projeto [https://github.com/rubenshubnerjunior/VFO_SI5351_Serial].
 
