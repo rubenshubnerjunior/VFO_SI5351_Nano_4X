@@ -8,6 +8,10 @@
 #define encoder0PinB  3
 #define tunestep   A2
 
+unsigned long time_now = 0;// Tempo decorrido do programa ligado mills()
+unsigned long time1 = 0;
+unsigned long time2 = 0;
+
 
 static const uint32_t bandStart = 3000000;     // Inicio da banda em HF (HZ)
 static const uint32_t bandEnd =   30000000;    // Fim da banda HF (HZ)
@@ -39,6 +43,8 @@ const int lcdColumns = 16;
 const int lcdRows = 2;
 
 bool stepEnable = true;
+
+
 
 Si5351 si5351;
 
@@ -188,12 +194,16 @@ void showDisplay()
   lcd.setCursor(3 , 1);
   lcd.print(faixa); // faixa
 
-  lcd.setCursor(8, 1);
+  lcd.setCursor(5, 1);
   lcd.print("STP:");
-  lcd.setCursor(12 , 1);
-  lcd.print(freqStep/1000); // Frequencia do Step
+  lcd.setCursor(9 , 1);
+  lcd.print(freqStep / 1000); // Frequencia do Step
 
-  
+  lcd.setCursor(13, 1);
+  lcd.print("Khz");
+
+
+
 
 }
 
@@ -208,7 +218,10 @@ void SendFrequency()
 }
 
 //====================Interrupcao do Encoder=========================
-void serviceEncoderInterrupt() {
+void serviceEncoderInterrupt()
+{
+
+  Serial.println("Interrupt");
 
   int signalA = digitalRead(encoder0PinA); //Leitura do pino canal A
   int signalB = digitalRead(encoder0PinB); //Leitura do pino canal B
@@ -218,16 +231,28 @@ void serviceEncoderInterrupt() {
 
   if (sum == 0b0111 || sum == 0b1110 || sum == 0b1000 || sum == 0b0001)
   {
-    if(freq < bandStart) return; // Nao decrementa a frequencia
-    freq = freq - freqStep;
+    if (freq < bandStart) return; // Nao decrementa a frequencia
+
+    if (time_now - time2 > 5) // Evita o bounce do encoder
+    {
+      freq = freq - freqStep;
+      time2 = time_now;
+    }
+
   }
   if (sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011)
   {
-    if(freq > bandEnd) return; // Nao incrementa a frequencia
-    freq = freq + freqStep;
+    if (freq > bandEnd) return; // Nao incrementa a frequencia
+
+    if (time_now - time2 > 5)// Evita o bounce do encoder
+    {
+      freq = freq + freqStep;
+      time2 = time_now;
+    }
   }
 
   lastEncoded = encoded; // Guarda o valor para a proxima alteracao
+
 }
 
 //=================Ajuste do Step================================
@@ -318,14 +343,18 @@ void setup() {
 //=============================loop()=================
 void loop() {
 
+  time_now = millis();
   leSerial();
-
 
   if (digitalRead(tunestep) == LOW && stepEnable == true) // Botao do encoder clicado
   {
-    stepEnable = false;
-    setStep();
-    delay(500);
+
+    if (time_now - time1 > 500)
+    {
+      stepEnable = false;
+      setStep();
+      time1 = time_now;
+    }
   }
 
   if (freq != oldfreq)
@@ -342,7 +371,6 @@ void loop() {
       freq = oldfreq;
 
     }
-
 
   }
 
