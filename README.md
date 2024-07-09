@@ -5,7 +5,7 @@
 #### A faixa de 3 a 30 Mhz pode ser dividida em 08 subfaixas e coloca em nivel HI ou Low as saidas do conector para usar nas comutações dos filtros (vide esquema).
 #### No encoder é possivel definir o Step que será aplicado a frequência de saída em Khz.
 #### O display mostra a frequência de saída bem como a faixa e o Step ajustado.
-#### Para maiores detalhes da comunicação Serial com o arduino, pode ser visto com mais detalhes em outro projeto: https://github.com/rubenshubnerjunior/VFO_SI5351_Serial .
+#### Para maiores detalhes da comunicação Serial com o arduino Nano, pode ser visto em outro projeto: https://github.com/rubenshubnerjunior/VFO_SI5351_Serial .
 #### Este projeto ainda falta implementar o PTT.
 #### O código fonte do arduino está bem comentado.
 ### Sugestões sempre ajudam.
