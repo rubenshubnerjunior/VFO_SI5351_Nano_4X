@@ -6,4 +6,8 @@
 #### No encoder é possivel definir o Step que será aplicado a frequência de saída em Khz.
 #### O display mostra a frequência de saída bem como a faixa e o Step ajustado.
 #### Para maiores detalhes da comunicação serial com o arduino, pode ser visto com mais detalhes no projeto: [https://github.com/rubenshubnerjunior/VFO_SI5351_Serial].
+#### Este projeto ainda falta implementar o PTT.
+### Sugestões serão bem vindas
+
+### 73's  PY2 RHJ
 
