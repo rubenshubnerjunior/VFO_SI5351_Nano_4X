@@ -42,10 +42,6 @@ volatile int lastEncoded = 0;
 const int lcdColumns = 16;
 const int lcdRows = 2;
 
-bool stepEnable = true;
-
-
-
 Si5351 si5351;
 
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
@@ -63,8 +59,8 @@ void leSerial()
 
     if (command.startsWith("FREQ"))
     {
-      String arg = command.substring(command.indexOf(',') + 1); //(Mensagem do Hardware SDR ex:  FREQ,7000000)
-      freq = arg.toInt();
+      String arg = command.substring(command.indexOf(',') + 1); //(Mensagem do Software SDR ex:  FREQ,7000000)
+      freq = arg.toInt(); // Frequencia em Hz
       Serial.println((long int)freq);
     }
   }
@@ -209,16 +205,15 @@ void SendFrequency()
 {
   freqX4 = freq * 4; // Saida do VFO que serah dividida por 4 para formar a quadratura
   setFaixa(); // Ajusta os filtros conforme a faixa de frequencia ( f1 a f8 )
-
-  si5351.set_freq_manual(freqX4 * 100ULL, pll_max * 100ULL, SI5351_CLK0); // *100ULL para converter HZ em 0.01 HZ
   showDisplay();
+  
+  si5351.set_freq_manual(freqX4 * 100ULL, pll_max * 100ULL, SI5351_CLK0); // *100ULL para converter HZ em 0.01 HZ
+  
 }
 
 //====================Interrupcao do Encoder=========================
 void serviceEncoderInterrupt()
 {
-
-  Serial.println("Interrupt");
 
   int signalA = digitalRead(encoder0PinA); //Leitura do pino canal A
   int signalB = digitalRead(encoder0PinB); //Leitura do pino canal B
@@ -228,27 +223,21 @@ void serviceEncoderInterrupt()
 
   if (sum == 0b0111 || sum == 0b1110 || sum == 0b1000 || sum == 0b0001)
   {
-    if (freq < bandStart) return; // Nao decrementa a frequencia
-
-    if (time_now - time2 > 1) // Evita o bounce do encoder
+    if (freq > bandStart && (time_now - time2) > 2000 )// Freq. maior que o inicio da banda e passou o tempo de repique do encoder
     {
-      freq = freq - freqStep;
+      freq = freq - freqStep; // Decrementa a frequencia
+      time2 = time_now;// Remove a diferenca entre as variaveis para reiniciar a temporizacao
     }
-
   }
   if (sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011)
   {
-    if (freq > bandEnd) return; // Nao incrementa a frequencia
-
-    if (time_now - time2 > 1)// Evita o bounce do encoder
+    if (freq < bandEnd && (time_now - time2) > 2000)// Freq. menor que o fim da banda e passou o tempo de repique do encoder
     {
-      freq = freq + freqStep;
+      freq = freq + freqStep; // Incrementa frequencia
+      time2 = time_now;// Remove a diferenca entre as variaveis para reiniciar a temporizacao
     }
   }
-
-  time2 = time_now;
   lastEncoded = encoded; // Guarda o valor para a proxima alteracao
-
 }
 
 //=================Ajuste do Step================================
@@ -258,7 +247,6 @@ void setStep()
   if (freqStep == 1000)
   {
     freqStep = 10000; // Step de 10 Khz
-    stepEnable = true;
     showDisplay();
     Serial.println(freqStep);
     return;
@@ -266,21 +254,18 @@ void setStep()
   if (freqStep == 10000)
   {
     freqStep = 100000; // Step de 100 Khz
-    stepEnable = true;
     showDisplay();
     return;
   }
   if (freqStep == 100000)
   {
     freqStep = 1000000; // Step de 1000 Khz
-    stepEnable = true;
     showDisplay();
     return;
   }
   if (freqStep == 1000000)
   {
     freqStep = 1000; // Step de 1000 Khz
-    stepEnable = true;
     showDisplay();
     return;
   }
@@ -339,18 +324,16 @@ void setup() {
 //=============================loop()=================
 void loop() {
 
-  time_now = millis();
+  time_now = micros();
+  if (time1 > time_now) time1 = time_now; // Overflow da variavel time_now
+  if (time2 > time_now) time2 = time_now; // Overflow da variavel time_now
+
   leSerial();
 
-  if (digitalRead(tunestep) == LOW && stepEnable == true) // Botao do encoder clicado
+  if (digitalRead(tunestep) == LOW && (time_now - time1) > 500000 ) // Botao do encoder clicado
   {
-
-    if (time_now - time1 > 500)
-    {
-      stepEnable = false;
-      setStep();
-      time1 = time_now;
-    }
+    setStep(); // Ajusta a frequencia do Step que o encoder irah aplicar
+    time1 = time_now;
   }
 
   if (freq != oldfreq)
@@ -365,11 +348,9 @@ void loop() {
       Serial.println("Frequencia fora da faixa");
       Serial.println("Mantendo o valor anterior");
       freq = oldfreq;
-
     }
 
   }
 
-  delay(1);
 
 }
