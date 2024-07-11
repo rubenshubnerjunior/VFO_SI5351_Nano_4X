@@ -8,7 +8,7 @@
 #define encoder0PinB  3
 #define tunestep   A2
 
-unsigned long time_now = 0;// Tempo decorrido do programa ligado mills()
+unsigned long time_now = 0;// Tempo decorrido do programa ligado em milissegundos
 unsigned long time1 = 0;
 unsigned long time2 = 0;
 
@@ -170,8 +170,7 @@ void setFaixa()
 //==================Mostrar no Display===============
 void showDisplay()
 {
-  lcd.init();
-  lcd.backlight();
+  
 
   lcd.setCursor(0, 0);
   lcd.print("                "); // Apaga a linha superior
@@ -206,34 +205,32 @@ void SendFrequency()
   freqX4 = freq * 4; // Saida do VFO que serah dividida por 4 para formar a quadratura
   setFaixa(); // Ajusta os filtros conforme a faixa de frequencia ( f1 a f8 )
   showDisplay();
-  
   si5351.set_freq_manual(freqX4 * 100ULL, pll_max * 100ULL, SI5351_CLK0); // *100ULL para converter HZ em 0.01 HZ
-  
+
 }
 
 //====================Interrupcao do Encoder=========================
 void serviceEncoderInterrupt()
 {
-
   int signalA = digitalRead(encoder0PinA); //Leitura do pino canal A
   int signalB = digitalRead(encoder0PinB); //Leitura do pino canal B
 
-  int encoded = (signalB << 1) | signalA;  // converting the 2 pin value to single number
-  int sum  = (lastEncoded << 2) | encoded; // adding it to the previous encoded value
+  int encoded = (signalB << 1) | signalA;  // Converte valores dois pinos em um unico numero
+  int sum  = (lastEncoded << 2) | encoded; // Adiciona ao valor previo ( antes da nova posicao do Encoder )
 
-  if (sum == 0b0111 || sum == 0b1110 || sum == 0b1000 || sum == 0b0001)
+  if (sum == 0b0111 || sum == 0b1110 || sum == 0b1000 || sum == 0b0001)// Encoder sentido Horario (Codigo gray)
   {
-    if (freq > bandStart && (time_now - time2) > 2000 )// Freq. maior que o inicio da banda e passou o tempo de repique do encoder
+    if (freq < bandEnd && (time_now - time2) > 10)// Freq. menor que o fim da banda e aguarda tempo para atender nova interrupcao
     {
-      freq = freq - freqStep; // Decrementa a frequencia
+      freq = freq + freqStep; // Incrementa frequencia conforme Step selecionado
       time2 = time_now;// Remove a diferenca entre as variaveis para reiniciar a temporizacao
     }
   }
-  if (sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011)
+  if (sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011)// Encoder sentido AntiHorario (Codigo gray)
   {
-    if (freq < bandEnd && (time_now - time2) > 2000)// Freq. menor que o fim da banda e passou o tempo de repique do encoder
+    if (freq > bandStart && (time_now - time2) > 10 )// Freq. maior que o inicio da banda e e aguarda tempo para atender nova interrupcao
     {
-      freq = freq + freqStep; // Incrementa frequencia
+      freq = freq - freqStep; // Decrementa a frequencia conforme Step selecionado
       time2 = time_now;// Remove a diferenca entre as variaveis para reiniciar a temporizacao
     }
   }
@@ -324,13 +321,13 @@ void setup() {
 //=============================loop()=================
 void loop() {
 
-  time_now = micros();
+  time_now = millis();
   if (time1 > time_now) time1 = time_now; // Overflow da variavel time_now
   if (time2 > time_now) time2 = time_now; // Overflow da variavel time_now
 
   leSerial();
 
-  if (digitalRead(tunestep) == LOW && (time_now - time1) > 500000 ) // Botao do encoder clicado
+  if (digitalRead(tunestep) == LOW && (time_now - time1) > 500 ) // Botao do encoder clicado
   {
     setStep(); // Ajusta a frequencia do Step que o encoder irah aplicar
     time1 = time_now;
