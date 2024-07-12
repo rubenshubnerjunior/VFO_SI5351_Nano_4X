@@ -1,5 +1,18 @@
 
 
+/*
+ * Codificado por Rubens Hubner Junior PY2 RHJ ID DMR:7245251
+ * 
+ * Este codigo comanda o modulo SI5351 com o arduino nano via protocolo I2C
+ * A frequencia de saida do modulo SI5351 deve ser 4 vezes a frequencia desejada pois serah divida por 4 
+ * para obter a quadratura.
+ * O Arduino nano recebe a informacao da frequencia desejada atraves da porta serial ou do encoder
+ * Os paramentros sao visualizados no display LCD
+ * Tem 08 saidas (0 5V) para usar na selecao de filtros conforme a faixa.
+ * Tem uma entrada para acionamento do PTT e a uma saida logica TTL para comutacao RX/TX.
+ * 
+ */
+
 #include <Wire.h>                          // Comunicacao I2C com o SI5351
 #include "si5351.h"                        // Si5351 library
 #include <LiquidCrystal_I2C.h>             // LCD library
