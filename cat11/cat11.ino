@@ -1,17 +1,17 @@
 
 
 /*
- * Codificado por Rubens Hubner Junior PY2 RHJ ID DMR:7245251
- * 
- * Este codigo comanda o modulo SI5351 com o arduino nano via protocolo I2C
- * A frequencia de saida do modulo SI5351 deve ser 4 vezes a frequencia desejada pois serah divida por 4 
- * para obter a quadratura.
- * O Arduino nano recebe a informacao da frequencia desejada atraves da porta serial ou do encoder
- * Os paramentros sao visualizados no display LCD
- * Tem 08 saidas (0 5V) para usar na selecao de filtros conforme a faixa.
- * Tem uma entrada para acionamento do PTT e a uma saida logica TTL para comutacao RX/TX.
- * 
- */
+   Codificado por Rubens Hubner Junior PY2 RHJ ID DMR:7245251
+
+   Este codigo comanda o modulo SI5351 com o arduino nano via protocolo I2C
+   A frequencia de saida do modulo SI5351 deve ser 4 vezes a frequencia desejada pois serah divida por 4
+   para obter a quadratura.
+   O Arduino nano recebe a informacao da frequencia desejada atraves da porta serial ou do encoder
+   Os paramentros sao visualizados no display LCD
+   Tem 08 saidas (0 5V) para usar na selecao de filtros conforme a faixa.
+   Tem uma entrada para acionamento do PTT e a uma saida logica TTL para comutacao RX/TX.
+
+*/
 
 #include <Wire.h>                          // Comunicacao I2C com o SI5351
 #include "si5351.h"                        // Si5351 library
@@ -20,10 +20,13 @@
 #define encoder0PinA  2
 #define encoder0PinB  3
 #define tunestep   A2
+#define ptt_in     A3
 
 unsigned long time_now = 0;// Tempo decorrido do programa ligado em milissegundos
 unsigned long time1 = 0;
 unsigned long time2 = 0;
+unsigned long time3 = 0;
+
 
 
 static const uint32_t bandStart = 3000000;     // Inicio da banda em HF (HZ)
@@ -32,6 +35,7 @@ static const uint32_t pll_min =   600000000;     //Frequencia minima do PLL (HZ)
 static const uint32_t pll_max =   900000000;     //Frequencia maxima do PLL (HZ)
 
 int faixa = 1;
+bool rxtx = false; //  (false-> RX)   (true-> TX)
 
 const int f1 = 4;
 const int f2 = 5;
@@ -183,8 +187,6 @@ void setFaixa()
 //==================Mostrar no Display===============
 void showDisplay()
 {
-  
-
   lcd.setCursor(0, 0);
   lcd.print("                "); // Apaga a linha superior
   lcd.setCursor(0, 0);
@@ -192,8 +194,8 @@ void showDisplay()
   lcd.setCursor(6, 0);
   lcd.print("Khz");
   lcd.setCursor(11, 0);
-  lcd.print("OUT");
-
+  if (rxtx == false) lcd.print("RX");
+  if (rxtx == true)  lcd.print("TX");
 
   lcd.setCursor(0, 1);
   lcd.print("                "); // Apaga a linha inferior
@@ -233,7 +235,7 @@ void serviceEncoderInterrupt()
 
   if (sum == 0b0111 || sum == 0b1110 || sum == 0b1000 || sum == 0b0001)// Encoder sentido Horario (Codigo gray)
   {
-    if (freq < bandEnd && (time_now - time2) > 10)// Freq. menor que o fim da banda e aguarda tempo para atender nova interrupcao
+    if (freq < bandEnd && (time_now - time2) > 10)// Freq. menor que o fim da banda e trata repique do Encoder
     {
       freq = freq + freqStep; // Incrementa frequencia conforme Step selecionado
       time2 = time_now;// Remove a diferenca entre as variaveis para reiniciar a temporizacao
@@ -241,7 +243,7 @@ void serviceEncoderInterrupt()
   }
   if (sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011)// Encoder sentido AntiHorario (Codigo gray)
   {
-    if (freq > bandStart && (time_now - time2) > 10 )// Freq. maior que o inicio da banda e e aguarda tempo para atender nova interrupcao
+    if (freq > bandStart && (time_now - time2) > 10 )// Freq. maior que o inicio da banda e trata repique do Encoder
     {
       freq = freq - freqStep; // Decrementa a frequencia conforme Step selecionado
       time2 = time_now;// Remove a diferenca entre as variaveis para reiniciar a temporizacao
@@ -279,7 +281,20 @@ void setStep()
     showDisplay();
     return;
   }
-
+}
+//===============Aciona o PTT=========================
+void acionaPTT()
+{
+  if (rxtx == true)
+  {
+    digitalWrite(ptt_out, HIGH);
+    showDisplay();
+  }
+  else
+  {
+    digitalWrite(ptt_out, LOW);
+    showDisplay();
+  }
 }
 
 //=================================setup()======================
@@ -314,6 +329,7 @@ void setup() {
   pinMode(f8, OUTPUT);
   pinMode(ptt_out, OUTPUT);
 
+
   digitalWrite(f1, LOW);
   digitalWrite(f2, LOW);
   digitalWrite(f3, LOW);
@@ -327,6 +343,7 @@ void setup() {
   pinMode(encoder0PinA, INPUT);
   pinMode(encoder0PinB, INPUT);
   pinMode(tunestep, INPUT);
+  pinMode(ptt_in, INPUT);
 
   attachInterrupt(0, serviceEncoderInterrupt, CHANGE);
   attachInterrupt(1, serviceEncoderInterrupt, CHANGE);
@@ -337,6 +354,7 @@ void loop() {
   time_now = millis();
   if (time1 > time_now) time1 = time_now; // Overflow da variavel time_now
   if (time2 > time_now) time2 = time_now; // Overflow da variavel time_now
+  if (time3 > time_now) time3 = time_now; // Overflow da variavel time_now
 
   leSerial();
 
@@ -345,12 +363,17 @@ void loop() {
     setStep(); // Ajusta a frequencia do Step que o encoder irah aplicar
     time1 = time_now;
   }
-
+  if (digitalRead(ptt_in) == LOW && (time_now - time3) > 1500)
+  {
+    rxtx = !rxtx;
+    acionaPTT();
+    time3 = time_now;
+  }
   if (freq != oldfreq)
   {
     if (freq <= bandEnd && freq >= bandStart) // A frequencia esta dentro da banda (3MHZ a 30MHZ)
     {
-      SendFrequency();
+      SendFrequency(); // Ajusta a frequencia do SI5351
       oldfreq = freq;
     }
     else
