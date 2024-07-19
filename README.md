@@ -23,7 +23,8 @@
 - FA;   // HDSDR pede informação da frequência para o VFO
 - FA00007349999; // VFO informa a frequencia para o HDSDR
 #### Os comandos do HDSDR para o VFO e do VFO para o HDSDR sempre tem o (;) no final
-###  Tela de Configuração do Omni-Rig:
+####  Tela de Configuração do Omni-Rig:
+- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/Omnia_Config.jpg)
   
   
 
