@@ -15,6 +15,19 @@
 -  ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/nano_debug.jpg)
 #### Foi usado o codigo monitor_I2C em outro Arduino Nano Escravo para fazer o Debug pela porta serial (I2C -> Serial), acrescidas linhas de codigo no arduino do cat11.ino para enviar mensagens ao escravo isto somente para Debug depois as linhas foram comentadas e o arduino Nano escravo retirado do circuito.
 
+#### Alguns comandos enviados e recebidos via porta Serial:
+- FA00006000000; // HDSDR ajusta o VFO para 6 Mhz
+- FA00030000000;  // HDSDR ajusta o VFO para 30 Mhz
+- TX1;  // HDSDR envia informação para entrar no modo TX
+- RX;   // HDSDR  envia informação para entrar no modo RX
+- FA;   // HDSDR pede informação da frequência para o VFO
+- 
+- FA00007
+- 349999; // VFO informa a frequencia para o HDSDR
+  
+
+
+
 
 ### Sugestões sempre ajudam.
 
