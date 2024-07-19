@@ -10,6 +10,10 @@
 #### O software HDSDR junto com o Omni-rig usando a configuração TS-480 controla a frequencia e o PTT deste VFO.
 #### O display mostra a frequência de saída bem como a faixa e o Step ajustado.
 #### O código fonte do arduino (pasta cat11) está bem comentado.
+#### Durante o processo de programação para fazer o Debug foi utilizado outro arduino Nano como escravo I2C pois a porta serial do arduino usado no VFO fica ocupada recebendo e enviando dados para o computador:
+
+
+
 ### Sugestões sempre ajudam.
 
 ### 73's  PY2 RHJ     ID DMR:7245251
