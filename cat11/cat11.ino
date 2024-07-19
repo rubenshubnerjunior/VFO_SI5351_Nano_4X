@@ -53,35 +53,177 @@ volatile uint32_t freq = 7000000 ;
 volatile uint32_t freqX4 = 28000000 ; // Frequencia multiplicada por 4 para usar o divisor
 volatile uint32_t freqStep = 1000 ;// Frequencia do Step em HZ
 
+char CATcmd[32]; // Array para receber comando enviado pelo CAT do OMNIRIG
+volatile uint8_t cat_ptr = 0;
+
 
 volatile int lastEncoded = 0;
 
 const int lcdColumns = 16;
 const int lcdRows = 2;
 
+
+//const int slaveAddress = 0x08; // Para usar arduino nano como escravo ( monitoracao de debug )
+//String message = ""; // Para usar arduino nano como escravo ( monitoracao de debug )
+
+
+
 Si5351 si5351;
 
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
 
 //================Leitura da porta serial=========================
-
 void leSerial()
 {
-  if (Serial.available())
-  {
-    String command = Serial.readString();
-    Serial.print("Info da Serial:");
-    Serial.println(command);
-    command.toUpperCase();
-
-    if (command.startsWith("FREQ"))
-    {
-      String arg = command.substring(command.indexOf(',') + 1); //(Mensagem do Software SDR ex:  FREQ,7000000)
-      freq = arg.toInt(); // Frequencia em Hz
-      Serial.println((long int)freq);
+  if (Serial.available()) {
+    char data = Serial.read();
+    CATcmd[cat_ptr++] = data;
+    if (data == ';') {
+      CATcmd[cat_ptr] = '\0'; // terminate the array
+      cat_ptr = 0;
+      analyseCATcmd();
     }
   }
 }
+
+//=====================Analise do comando CAT==========================
+void analyseCATcmd()
+{
+
+  if ((CATcmd[0] == 'F') && (CATcmd[1] == 'A') && (CATcmd[2] == ';'))
+  {
+    //Command_GETFreqA();
+  }
+  else if ((CATcmd[0] == 'F') && (CATcmd[1] == 'A') && (CATcmd[13] == ';'))
+  {
+    Command_SETFreqA();
+  }
+  else if ((CATcmd[0] == 'I') && (CATcmd[1] == 'F') && (CATcmd[2] == ';'))
+  {
+    //Command_IF();
+  }
+  else if ((CATcmd[0] == 'I') && (CATcmd[1] == 'D') && (CATcmd[2] == ';'))
+  {
+    //Command_ID();
+  }
+  else if ((CATcmd[0] == 'P') && (CATcmd[1] == 'S') && (CATcmd[2] == ';'))
+  {
+    //Command_PS();
+  }
+  else if ((CATcmd[0] == 'P') && (CATcmd[1] == 'S') && (CATcmd[2] == '1'))
+  {
+    // Command_PS1();
+  }
+  else if ((CATcmd[0] == 'A') && (CATcmd[1] == 'I') && (CATcmd[2] == ';'))
+  {
+    // Command_AI();
+  }
+  else if ((CATcmd[0] == 'A') && (CATcmd[1] == 'I') && (CATcmd[2] == '0'))
+  {
+    // Command_AI0();
+  }
+  else if ((CATcmd[0] == 'M') && (CATcmd[1] == 'D') && (CATcmd[2] == ';'))
+  {
+    //Command_GetMD();
+  }
+  else if ((CATcmd[0] == 'M') && (CATcmd[1] == 'D') && (CATcmd[3] == ';'))
+  {
+    //Command_SetMD();
+  }
+  else if ((CATcmd[0] == 'R') && (CATcmd[1] == 'X') && (CATcmd[2] == ';'))
+  {
+    //Command_RX();
+    //message = "RX"; // Monitoracao para Debug no arduino escravo I2C
+    // monitorI2C();
+
+    rxtx = false;
+    acionaPTT();
+  }
+  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == ';'))
+  {
+    //Command_TX0();
+    // message = "TX";// Monitoracao para Debug no arduino escravo I2C
+    //monitorI2C();
+  }
+  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '0'))
+  {
+    //Command_TX0();
+    //message = "TX0"; // Monitoracao para Debug no arduino escravo I2C
+    // monitorI2C();
+  }
+  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '1'))
+  {
+    //Command_TX1();
+    //message = "TX1"; // Monitoracao para Debug no arduino escravo I2C
+    // monitorI2C();
+    rxtx = true;
+    acionaPTT();
+
+  }
+  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '2'))
+  {
+    //Command_TX2();
+    //message = "TX"; // Monitoracao para Debug no arduino escravo I2C
+    //monitorI2C();
+  }
+  else if ((CATcmd[0] == 'A') && (CATcmd[1] == 'G') && (CATcmd[2] == '0')) // add
+  {
+    //Command_AG0();
+  }
+  else if ((CATcmd[0] == 'X') && (CATcmd[1] == 'T') && (CATcmd[2] == '1')) // add
+  {
+    //Command_XT1();
+  }
+  else if ((CATcmd[0] == 'R') && (CATcmd[1] == 'T') && (CATcmd[2] == '1')) // add
+  {
+    // Command_RT1();
+  }
+  else if ((CATcmd[0] == 'R') && (CATcmd[1] == 'C') && (CATcmd[2] == ';')) // add
+  {
+    //Command_RC();
+  }
+  else if ((CATcmd[0] == 'F') && (CATcmd[1] == 'L') && (CATcmd[2] == '0')) // need?
+  {
+    // Command_FL0();
+  }
+  else if ((CATcmd[0] == 'R') && (CATcmd[1] == 'S') && (CATcmd[2] == ';'))
+  {
+    //Command_RS();
+  }
+  else if ((CATcmd[0] == 'V') && (CATcmd[1] == 'X') && (CATcmd[2] != ';'))
+  {
+    // Command_VX(CATcmd[2]);
+  }
+
+}
+
+//=============================Ajuste da Frequencia pelo CAT==========================
+void Command_SETFreqA()
+{
+  char Catbuffer[16];
+  strncpy(Catbuffer, CATcmd + 2, 11);
+  Catbuffer[11] = '\0';
+  freq = (uint32_t)atol(Catbuffer);
+  
+  //message = freq; // Monitoracao para Debug no arduino escravo I2C
+  //monitorI2C();
+}
+
+
+
+//===================Monitoracao para Debug via arduino escravo I2C============
+
+void monitorI2C()
+{
+
+  //Wire.beginTransmission(slaveAddress); // transmite para o dispositivo slave
+ // message.concat("\n");
+  //Wire.write(message.c_str());// envia a mensagem
+ // Wire.endTransmission();  //para de transmitir
+ // message = "";
+
+}
+
 //===========Ajusta a faixa conforme a frequencia================================
 void setFaixa()
 {
@@ -301,6 +443,9 @@ void acionaPTT()
 void setup() {
 
   Serial.begin(115200);
+
+ // Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
+
   lcd.init();
   lcd.backlight();
 
