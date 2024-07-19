@@ -1,6 +1,6 @@
 ### Este projeto visa gerar frequência em quadratura ( 0º e 90° ) na faixa de 3 a 30 Mhz.
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_5351_4X.jpg)
-#### Basicamente temos o módulo SI 5351 é comandado através do Arduino nano usando o protocolo I2C.
+#### Basicamente temos o módulo SI 5351 que é comandado através do Arduino nano usando o protocolo I2C.
 #### A saída do módulo SI 5351 deve estar em uma frequência de 4 vezes a frequência desejada para que o divisor por 4 feito pelo flip flop 74AC74 gere a quadratura.
 #### O Arduino nano recebe os comandos através da porta serial (terminal Serial ou do HDSDR/Omni-Rig) veja abaixo:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama_vfo.jpg)
