@@ -25,6 +25,8 @@
 #### Os comandos do HDSDR para o VFO e do VFO para o HDSDR sempre tem o (;) no final
 ####  Tela de Configuração do Omni-Rig:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/Omnia_Config.jpg)
+#### No HDSDR no menu options precisa de algumas configurações:
+- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_01.jpg)
   
   
 
