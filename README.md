@@ -28,21 +28,16 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/Omnia_Config.jpg)
 #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_01.jpg)
+  #### Não esquecer de ativar.
   #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_02.jpg)
   #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_03.jpg)
   #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_04.jpg)
-
+### O HDSDR tem muitas configurações mas estas são suficientes para acionar o VFO, acredito que outras deverão ser feitas quando for receber ou gerar os sinais I e Q.
   
-  
-  
-
-
-
-
-### Sugestões sempre ajudam.
+#### Sugestões sempre ajudam.
 
 ### 73's  PY2 RHJ     ID DMR:7245251
 
