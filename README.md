@@ -21,9 +21,9 @@
 - TX1;  // HDSDR envia informação para entrar no modo TX
 - RX;   // HDSDR  envia informação para entrar no modo RX
 - FA;   // HDSDR pede informação da frequência para o VFO
-- 
-- FA00007
-- 349999; // VFO informa a frequencia para o HDSDR
+- FA00007349999; // VFO informa a frequencia para o HDSDR
+#### Os comandos do HDSDR para o VFO e do VFO para o HDSDR sempre tem o (;) no final
+  
   
 
 
