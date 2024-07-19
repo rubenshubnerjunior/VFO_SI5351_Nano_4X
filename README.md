@@ -7,6 +7,7 @@
 #### A faixa de 3 a 30 Mhz pode ser dividida em 08 subfaixas e coloca em nivel HI ou Low as saidas do conector para usar nas comutações dos filtros (vide esquema).
 #### O software HDSDR junto com o Omni-rig usando a configuração TS-480 controla a frequencia e o PTT deste VFO.
 #### No encoder é possivel definir o Step que será aplicado a frequência de saída em Khz.
+- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_Encoder.jpg)
 #### O display mostra a frequência de saída bem como a faixa e o Step ajustado.
 #### O código fonte do arduino (pasta cat11) está bem comentado.
 ### Sugestões sempre ajudam.
