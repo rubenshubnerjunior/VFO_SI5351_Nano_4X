@@ -63,8 +63,8 @@ const int lcdColumns = 16;
 const int lcdRows = 2;
 
 
-//const int slaveAddress = 0x08; // Para usar arduino nano como escravo ( monitoracao de debug )
-//String message = ""; // Para usar arduino nano como escravo ( monitoracao de debug )
+const int slaveAddress = 0x08; // Para usar arduino nano como escravo ( monitoracao de debug )
+String message = ""; // Para usar arduino nano como escravo ( monitoracao de debug )
 
 
 
@@ -81,7 +81,13 @@ void leSerial()
     if (data == ';') {
       CATcmd[cat_ptr] = '\0'; // terminate the array
       cat_ptr = 0;
+
+      //message = CATcmd ;
+      //monitorI2C();  // Monitoracao para Debug no arduino escravo I2C
+
       analyseCATcmd();
+
+
     }
   }
 }
@@ -92,7 +98,7 @@ void analyseCATcmd()
 
   if ((CATcmd[0] == 'F') && (CATcmd[1] == 'A') && (CATcmd[2] == ';'))
   {
-    //Command_GETFreqA();
+    Command_GETFreqA();
   }
   else if ((CATcmd[0] == 'F') && (CATcmd[1] == 'A') && (CATcmd[13] == ';'))
   {
@@ -204,12 +210,39 @@ void Command_SETFreqA()
   strncpy(Catbuffer, CATcmd + 2, 11);
   Catbuffer[11] = '\0';
   freq = (uint32_t)atol(Catbuffer);
-  
+
   //message = freq; // Monitoracao para Debug no arduino escravo I2C
   //monitorI2C();
 }
 
+//===================Envia frequencia para o HDSDR==================================
+void Command_GETFreqA()
+{
+  char Catbuffer[32];
+  unsigned int g, m, k, h;
+  uint32_t tf;
 
+  tf = freq;
+  g = (unsigned int)(tf / 1000000000lu);
+  tf -= g * 1000000000lu;
+  m = (unsigned int)(tf / 1000000lu);
+  tf -= m * 1000000lu;
+  k = (unsigned int)(tf / 1000lu);
+  tf -= k * 1000lu;
+  h = (unsigned int)tf;
+
+  sprintf(Catbuffer, "FA%02u%03u", g, m);
+  Serial.print(Catbuffer);
+
+  message = Catbuffer;
+  monitorI2C(); // Monitoracao para Debug no arduino escravo I2C
+
+  sprintf(Catbuffer, "%03u%03u;", k, h);
+  Serial.print(Catbuffer);
+
+  //message = Catbuffer;
+  //monitorI2C(); // Monitoracao para Debug no arduino escravo I2C
+}
 
 //===================Monitoracao para Debug via arduino escravo I2C============
 
@@ -217,10 +250,10 @@ void monitorI2C()
 {
 
   //Wire.beginTransmission(slaveAddress); // transmite para o dispositivo slave
- // message.concat("\n");
+  //message.concat("\n");
   //Wire.write(message.c_str());// envia a mensagem
- // Wire.endTransmission();  //para de transmitir
- // message = "";
+  //Wire.endTransmission();  //para de transmitir
+  //message = "";
 
 }
 
@@ -444,7 +477,7 @@ void setup() {
 
   Serial.begin(115200);
 
- // Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
+  //Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
 
   lcd.init();
   lcd.backlight();
