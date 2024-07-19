@@ -23,13 +23,19 @@
 - FA;   // HDSDR pede informação da frequência para o VFO
 - FA00007349999; // VFO informa a frequencia para o HDSDR
 #### Os comandos do HDSDR para o VFO e do VFO para o HDSDR sempre tem o (;) no final
+#### O HDSDR pede várias informações ao VFO e não implementei todas por isto fica a mensagem de Rig não responde.
 ####  Tela de Configuração do Omni-Rig:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/Omnia_Config.jpg)
-#### No HDSDR no menu options precisa de algumas configurações:
+#### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_01.jpg)
+  #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_02.jpg)
+  #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_03.jpg)
+  #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_04.jpg)
+
+  
   
   
 
