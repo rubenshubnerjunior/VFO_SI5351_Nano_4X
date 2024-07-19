@@ -4,7 +4,8 @@
 #### A saída do módulo SI 5351 deve estar em uma frequência de 4 vezes a frequência desejada para que o divisor por 4 feito pelo flip flop 74AC74 gere a quadratura.
 #### O Arduino nano recebe os comandos através da porta serial (Terminal Serial ou do HDSDR/Omni-Rig) veja abaixo:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama_vfo.jpg)
-#### A frequência e o Step tambem pode ser ajustada através do Encoder em KHZ.
+#### A Frequência e o Step tambem pode ser ajustada através do Encoder em KHZ.
+#### O PTT tambem pode ser acionado via contato diretamente na placa.
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_Encoder.jpg)
 #### A faixa de 3 a 30 Mhz pode ser dividida em 08 subfaixas e coloca em nivel HI ou Low as saidas do conector para usar nas comutações dos filtros (vide esquema).
 #### O software HDSDR junto com o Omni-rig usando a configuração TS-480 controla a frequencia e o PTT deste VFO.
