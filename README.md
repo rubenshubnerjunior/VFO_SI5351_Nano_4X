@@ -27,6 +27,7 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/Omnia_Config.jpg)
 #### No HDSDR no menu options precisa de algumas configurações:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_01.jpg)
+- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_02.jpg)
   
   
 
