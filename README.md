@@ -13,7 +13,7 @@
 #### O código fonte do arduino (pasta cat11) está bem comentado.
 #### Durante o processo de programação para fazer o Debug foi utilizado outro arduino Nano como escravo I2C pois a porta serial do arduino usado no VFO fica ocupada recebendo e enviando dados para o computador:
 -  ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/nano_debug.jpg)
-#### Foi usado o codigo monitor_I2C no arduino Nano escravo para fazer o Debug pela porta serial (I2C -> Serial), acrescidas linhas de codigo no arduino do cat11.ino para enviar mensagens ao escravo isto somente para Debug depois as linhas foram comentadas.
+#### Foi usado o codigo monitor_I2C no arduino Nano escravo para fazer somente o Debug pela porta serial (I2C -> Serial), acrescidas linhas de codigo no arduino do cat11.ino para enviar mensagens ao escravo isto somente para Debug depois as linhas foram comentadas.
 
 
 ### Sugestões sempre ajudam.
