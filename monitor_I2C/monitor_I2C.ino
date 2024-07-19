@@ -2,24 +2,11 @@
 
 
 /******************************************************************************
-                    Comunicação Mestre e dois Escravo - Sketch para SLAVE
-                                 Sketch de Exemplo
-
-                         Criado em 15 de Agosto de 2022
-                               por Michel Galvão
-
-  Placa: Arduino Mega
-  O sketch usa 5076 bytes (1%) de espaço de armazenamento para programas. 
-    O máximo são 253952 bytes.
-  Variáveis globais usam 406 bytes (4%) de memória dinâmica, deixando 7786 bytes 
-    para variáveis locais. O máximo são 8192 bytes.
-
-
-  Blog Eletrogate - Veja este e outros projetos e tutoriais no blog Eletrogate
-                            https://blog.eletrogate.com/
-
-  Eletrogate - Loja de Arduino \\ Robótica \\ Automação \\ Apostilas \\ Kits
-                            https://www.eletrogate.com/
+ Este codigo recebe mensagem com o protocolo I2C  e envia na porta serial para monitoracao
+ em algum terminal.
+ Esta embarcado em um arduino Nano e eh usado para debugar o programa do cat11.ino porque
+ a porta serial do arduino que trabalha com o cat11.ino estah sendo usada para receber mensagens
+ do HDSDR via Omni-rig para controle do VFO.
 ******************************************************************************/
 
 // Inclusão da biblioteca
