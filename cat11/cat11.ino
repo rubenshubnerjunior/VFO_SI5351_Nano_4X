@@ -64,13 +64,25 @@ const int lcdRows = 2;
 
 
 const int slaveAddress = 0x08; // Para usar arduino nano como escravo ( monitoracao de debug )
-String message = ""; // Para usar arduino nano como escravo ( monitoracao de debug )
-
-
 
 Si5351 si5351;
 
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
+
+
+
+//===================Monitoracao para Debug via arduino escravo I2C============
+
+void monitorI2C(String msg)
+{
+
+  Wire.beginTransmission(slaveAddress); // transmite para o dispositivo slave
+  msg.concat("\n");
+  Wire.write(msg.c_str());// envia a mensagem
+  Wire.endTransmission();  //para de transmitir
+  msg = "";
+
+}
 
 //================Leitura da porta serial=========================
 void leSerial()
@@ -82,8 +94,7 @@ void leSerial()
       CATcmd[cat_ptr] = '\0'; // terminate the array
       cat_ptr = 0;
 
-      //message = CATcmd ;
-      //monitorI2C();  // Monitoracao para Debug no arduino escravo I2C
+      monitorI2C(CATcmd); //**************** Monitoracao no Arduino Escravo**********************
 
       analyseCATcmd();
 
@@ -148,29 +159,28 @@ void analyseCATcmd()
   else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == ';'))
   {
     //Command_TX0();
-    // message = "TX";// Monitoracao para Debug no arduino escravo I2C
-    //monitorI2C();
-  }
-  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '0'))
-  {
-    //Command_TX0();
-    //message = "TX0"; // Monitoracao para Debug no arduino escravo I2C
-    // monitorI2C();
-  }
-  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '1'))
-  {
-    //Command_TX1();
-    //message = "TX1"; // Monitoracao para Debug no arduino escravo I2C
-    // monitorI2C();
     rxtx = true;
     acionaPTT();
 
   }
+  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '0'))
+  {
+    //Command_TX0();
+    rxtx = true;
+    acionaPTT();
+  }
+  else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '1'))
+  {
+    //Command_TX1();
+    rxtx = true;
+    acionaPTT();
+  }
   else if ((CATcmd[0] == 'T') && (CATcmd[1] == 'X') && (CATcmd[2] == '2'))
   {
     //Command_TX2();
-    //message = "TX"; // Monitoracao para Debug no arduino escravo I2C
-    //monitorI2C();
+    rxtx = true;
+    acionaPTT();
+
   }
   else if ((CATcmd[0] == 'A') && (CATcmd[1] == 'G') && (CATcmd[2] == '0')) // add
   {
@@ -211,11 +221,9 @@ void Command_SETFreqA()
   Catbuffer[11] = '\0';
   freq = (uint32_t)atol(Catbuffer);
 
-  //message = freq; // Monitoracao para Debug no arduino escravo I2C
-  //monitorI2C();
 }
 
-//===================Envia frequencia para o HDSDR==================================
+//==================Informa a  frequencia para o HDSDR==================================
 void Command_GETFreqA()
 {
   char Catbuffer[32];
@@ -234,27 +242,12 @@ void Command_GETFreqA()
   sprintf(Catbuffer, "FA%02u%03u", g, m);
   Serial.print(Catbuffer);
 
-  message = Catbuffer;
-  monitorI2C(); // Monitoracao para Debug no arduino escravo I2C
+  monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
 
   sprintf(Catbuffer, "%03u%03u;", k, h);
   Serial.print(Catbuffer);
 
-  //message = Catbuffer;
-  //monitorI2C(); // Monitoracao para Debug no arduino escravo I2C
-}
-
-//===================Monitoracao para Debug via arduino escravo I2C============
-
-void monitorI2C()
-{
-
-  //Wire.beginTransmission(slaveAddress); // transmite para o dispositivo slave
-  //message.concat("\n");
-  //Wire.write(message.c_str());// envia a mensagem
-  //Wire.endTransmission();  //para de transmitir
-  //message = "";
-
+  monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
 }
 
 //===========Ajusta a faixa conforme a frequencia================================
@@ -477,7 +470,7 @@ void setup() {
 
   Serial.begin(115200);
 
-  //Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
+  Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
 
   lcd.init();
   lcd.backlight();
