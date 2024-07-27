@@ -9,7 +9,7 @@
 
 #  pip install pyserial ( para usar a porta serial)
 #  pip install pyinstaller ( para gerar arquivo .exe)
-#  pyinstaller --onefile -w comando.py
+#  pyinstaller --onefile -w testeVFO.py
 
 import serial
 import time
