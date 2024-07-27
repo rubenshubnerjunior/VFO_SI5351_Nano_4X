@@ -38,7 +38,8 @@
   #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_04.jpg)
 ### O HDSDR tem muitas configurações mas estas são suficientes para acionar o VFO, acredito que outras deverão ser feitas quando for receber ou gerar os sinais I e Q.
-  
+
+ - ![alt] https://www.youtube.com/watch?v=RT_Q52dTLLc&t=126s
 #### Sugestões sempre ajudam.
 
 ### 73's  PY2 RHJ     ID DMR:7245251
