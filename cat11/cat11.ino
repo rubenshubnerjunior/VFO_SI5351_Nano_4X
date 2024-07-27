@@ -21,6 +21,7 @@
 #define encoder0PinB  3
 #define tunestep   A2
 #define ptt_in     A3
+#define CATCMD_SIZE   32
 
 unsigned long time_now = 0;// Tempo decorrido do programa ligado em milissegundos
 unsigned long time1 = 0;
@@ -53,7 +54,7 @@ volatile uint32_t freq = 7000000 ;
 volatile uint32_t freqX4 = 28000000 ; // Frequencia multiplicada por 4 para usar o divisor
 volatile uint32_t freqStep = 1000 ;// Frequencia do Step em HZ
 
-char CATcmd[32]; // Array para receber comando enviado pelo CAT do OMNIRIG
+char CATcmd[CATCMD_SIZE]; // Array para receber comando enviado pelo CAT do OMNIRIG
 volatile uint8_t cat_ptr = 0;
 
 
@@ -89,17 +90,26 @@ void leSerial()
 {
   if (Serial.available()) {
     char data = Serial.read();
+    if(data == '\n' ||data == '\r' ) // a String nao pode iniciar com nova linha ou retorno de carro
+    {
+      cat_ptr = 0;
+      return;
+    }
     CATcmd[cat_ptr++] = data;
     if (data == ';') {
       CATcmd[cat_ptr] = '\0'; // terminate the array
       cat_ptr = 0;
 
-      monitorI2C(CATcmd); //**************** Monitoracao no Arduino Escravo**********************
+      monitorI2C("-------------->" + (String)CATcmd); //**************** Monitoracao no Arduino Escravo**********************
 
       analyseCATcmd();
 
-
     }
+    else if (cat_ptr > (CATCMD_SIZE - 1))
+    {
+      cat_ptr = 0;
+    }
+
   }
 }
 
@@ -242,12 +252,12 @@ void Command_GETFreqA()
   sprintf(Catbuffer, "FA%02u%03u", g, m);
   Serial.print(Catbuffer);
 
-  monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
+  //monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
 
   sprintf(Catbuffer, "%03u%03u;", k, h);
   Serial.print(Catbuffer);
 
-  monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
+  //monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
 }
 
 //===========Ajusta a faixa conforme a frequencia================================
