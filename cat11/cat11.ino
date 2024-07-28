@@ -10,6 +10,9 @@
    Os paramentros sao visualizados no display LCD
    Tem 08 saidas (0 5V) para usar na selecao de filtros conforme a faixa.
    Tem uma entrada para acionamento do PTT e a uma saida logica TTL para comutacao RX/TX.
+   As funcoes do encoder foi projetada para atenuar os repiques das chaves mecanicas.
+   As funcoes que trabalham no CAT ( Computer Aided Tunning ) foram baseadas no usdx
+   e foram modificada para receber as strings de qualquer terminal serial
 
 */
 
@@ -100,7 +103,7 @@ void leSerial()
       CATcmd[cat_ptr] = '\0'; // terminate the array
       cat_ptr = 0;
 
-      monitorI2C("-------------->" + (String)CATcmd); //**************** Monitoracao no Arduino Escravo**********************
+      //monitorI2C("-------------->" + (String)CATcmd); //**************** Monitoracao no Arduino Escravo**********************
 
       analyseCATcmd();
 
@@ -480,7 +483,7 @@ void setup() {
 
   Serial.begin(115200);
 
-  Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
+  //Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
 
   lcd.init();
   lcd.backlight();
