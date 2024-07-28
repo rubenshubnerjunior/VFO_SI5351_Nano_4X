@@ -3,7 +3,7 @@
 #### Basicamente temos o módulo SI 5351 que é comandado através do Arduino Nano usando o protocolo I2C.
 #### A saída do módulo SI 5351 deve estar em uma frequência de 4 vezes a frequência desejada para que o divisor por 4 feito pelo flip flop 74AC74 gere a quadratura.
 #### O software HDSDR junto com o Omni-Rig usando a configuração TS-480 controla a frequencia e o PTT deste VFO.
-#### Foi codificado em python um programa testeVFO.exe para testar o programa do arduino.
+#### Foi codificado em python um programa testeVFO.exe para testar o programa do arduino e está na pasta testeVFO o script e o executável.
 #### O arquivo testeVFO.exe envia pela porta serial as Strings semelhante as geradas pelo HDSDR.
 #### O Arduino nano recebe os comandos através da porta serial (Terminal Serial ou do HDSDR/Omni-Rig) veja abaixo:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama_vfo.jpg)
