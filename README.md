@@ -38,7 +38,7 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_03.jpg)
   #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_04.jpg)
-### O HDSDR tem muitas configurações mas estas são suficientes para acionar o VFO, acredito que outras deverão ser feitas quando for receber ou gerar os sinais I e Q.
+### O HDSDR tem muitas configurações mas estas são suficientes para acionar o VFO, outras deverão ser feitas quando for receber ou gerar os sinais I e Q da placa de som.
 ### Testes:
 - https://www.youtube.com/watch?v=RT_Q52dTLLc&t=126s
 #### Sugestões sempre ajudam.
