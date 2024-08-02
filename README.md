@@ -8,7 +8,7 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/testeVFO.jpg)
 #### O Arduino nano recebe os comandos através da porta serial (Terminal Serial ou do HDSDR/Omni-Rig) veja abaixo:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama_vfo.jpg)
-#### A Frequência e o Step ( 1Khz, 10Khz, 100Khz e 1000Khz) também pode ser ajustada através do Encoder em KHZ.
+#### A Frequência (3 - 30 Mhz) e o Step ( 1Khz, 10Khz, 100Khz e 1000Khz) também pode ser ajustada através do Encoder em KHZ.
 #### O PTT tambem pode ser acionado via contato diretamente na placa.
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_Encoder.jpg)
 #### A faixa de 3 a 30 Mhz pode ser dividida em 08 subfaixas e coloca em nivel HI ou Low as saidas do conector para usar nas comutações dos filtros (vide esquema).
