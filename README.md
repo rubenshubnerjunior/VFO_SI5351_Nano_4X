@@ -48,6 +48,8 @@
 - https://www.youtube.com/watch?v=RT_Q52dTLLc&t=126s
 # QSD 
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/QSD_Editado.jpg)
+  #### No circuito do QSD para demoduladar o sinal de RF foi usado o mixer Tayloe.
+  #### O Esquema encontra-se na pasta esquemas.
   
 #### Sugestões sempre ajudam.
 ### 73's  PY2 RHJ     ID DMR:7245251
