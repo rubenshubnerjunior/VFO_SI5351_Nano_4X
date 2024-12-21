@@ -3,6 +3,7 @@
 #### Construir um circuito QSD para decodificar sinais de RF modulados.
 #### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
 
+# VFO
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_5351_4X.jpg)
 #### Basicamente temos o módulo SI 5351 que é comandado através do Arduino Nano usando o protocolo I2C.
 #### A saída do módulo SI 5351 deve estar em uma frequência de 4 vezes a frequência desejada para que o divisor por 4 feito pelo flip flop 74AC74 gere a quadratura.
@@ -45,8 +46,7 @@
 ### O HDSDR tem muitas configurações mas estas são suficientes para acionar o VFO, outras deverão ser feitas quando for receber ou gerar os sinais I e Q da placa de som.
 #### Testes:
 - https://www.youtube.com/watch?v=RT_Q52dTLLc&t=126s
-#### Próximo passo, desenvolver a placa QSE/QSD:
-- ![alt](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama2.jpg)
+#QSD 
 #### Sugestões sempre ajudam.
 ### 73's  PY2 RHJ     ID DMR:7245251
 
