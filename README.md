@@ -1,7 +1,7 @@
 ### Este projeto visa:
-### Gerar frequência em quadratura ( 0º e 90° ) na faixa de 3 a 30 Mhz.
-### Construir um circuito QSD para decodificar sinais de RF modulados.
-### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
+#### Gerar frequência em quadratura ( 0º e 90° ) na faixa de 3 a 30 Mhz.
+#### Construir um circuito QSD para decodificar sinais de RF modulados.
+#### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
 
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_5351_4X.jpg)
 #### Basicamente temos o módulo SI 5351 que é comandado através do Arduino Nano usando o protocolo I2C.
