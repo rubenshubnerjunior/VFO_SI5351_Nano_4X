@@ -1,6 +1,6 @@
 ### Este projeto visa:
 #### Construir um gerador de frequência em quadratura ( 0º e 90° ) na faixa de 3 a 30 Mhz.
-#### Construir um circuito QSD para decodificar sinais de RF modulados.
+#### Construir um circuito QSD para demodular sinais de RF modulados.
 #### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
 
 # VFO
