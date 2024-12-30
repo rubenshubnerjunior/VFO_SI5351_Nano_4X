@@ -44,17 +44,23 @@
   #### No HDSDR no menu Options:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_04.jpg)
 #### O HDSDR tem muitas configurações mas estas são suficientes para acionar o VFO, outras deverão ser feitas quando for receber ou gerar os sinais I e Q da placa de som.
-#### Testes:
+#### Testes do VFO:
 - https://www.youtube.com/watch?v=RT_Q52dTLLc&t=126s
 # QSD 
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/QSD_Editado.jpg)
   #### No circuito do QSD para demoduladar o sinal de RF foi usado o mixer Tayloe.
   #### O Esquema encontra-se na pasta esquemas.
   #### Testes:
-  - https://www.youtube.com/watch?v=EsmPDjM7D9w
-  - https://www.youtube.com/watch?v=dkrUPmy8qsQ
-  - https://www.youtube.com/watch?v=oZrHM2pHxTM
+  #### Explicação do QSD:
+ - https://www.youtube.com/watch?v=EsmPDjM7D9w
+  #### Testes com o TinySA:
+   - https://www.youtube.com/watch?v=oZrHM2pHxTM
+    #### Recepção SSB:
+   - https://www.youtube.com/watch?v=dkrUPmy8qsQ
+  #### Recepção AM:
+  - https://www.youtube.com/watch?v=Rc6pbZAcLpk
   
+
 #### Sugestões sempre ajudam.
 ### 73's  PY2 RHJ     ID DMR:7245251
 
