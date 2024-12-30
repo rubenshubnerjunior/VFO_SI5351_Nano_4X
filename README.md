@@ -55,7 +55,7 @@
  - https://www.youtube.com/watch?v=EsmPDjM7D9w
   #### Testes com o TinySA:
    - https://www.youtube.com/watch?v=oZrHM2pHxTM
-    #### Recepção SSB:
+  #### Recepção SSB:
    - https://www.youtube.com/watch?v=dkrUPmy8qsQ
   #### Recepção AM:
   - https://www.youtube.com/watch?v=Rc6pbZAcLpk
