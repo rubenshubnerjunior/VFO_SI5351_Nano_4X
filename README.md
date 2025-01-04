@@ -6,7 +6,7 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama2.jpg)
 #### O Hardware recebe o RF da antena e converte em sinais I & Q que vão para o computador através da placa de som.
 #### O Hardware recebe os sinais I & Q do computador através da placa de som converte para RF e envia para a antena.
-#### Os sinais I & Q estão dentro da faixa da placa de som ( normalmente 48 Khz mas se for mais é melhor).
+#### Os sinais I & Q estão dentro da faixa da placa de som ( normalmente 48 Khz mas placas de 192 Khz é melhor ).
 #### QSD--> Quadrature Signal Decoder.
 #### QSE--> Quadrature signal Encoder.
 #### No final de cada etapa ( VFO, QSD e futuramente o QSE )  tem  vídeos de teste.
