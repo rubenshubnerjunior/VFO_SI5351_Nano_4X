@@ -3,7 +3,7 @@
 #### Construir um circuito QSD para demodular sinais de RF modulados.
 #### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
 #### Diagrama simplificado:
-- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama2.pdf)
+- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama2.jpg)
 # VFO
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_5351_4X.jpg)
 #### Basicamente temos o módulo SI 5351 que é comandado através do Arduino Nano usando o protocolo I2C.
