@@ -7,7 +7,7 @@
 #### O Hardware VFO fornece sinais em quadratura na frequência de recepção/transmissão desejada.
 #### O Hardware QSD recebe o RF da antena e converte em sinais I & Q que vão para o computador através da placa de som.
 #### O Hardware QSE recebe os sinais I & Q do computador através da placa de som converte para RF e envia para a antena.
-#### Os sinais I & Q estão dentro da faixa da placa de som ( normalmente 48 Khz mas placas de 192 Khz é melhor ).
+#### Os sinais I & Q estão dentro da faixa da placa de som ( normalmente 48 Khz mas placas de 192 Khz são melhores ).
 #### QSD--> Quadrature Signal Decoder.
 #### QSE--> Quadrature signal Encoder.
 #### No final de cada etapa ( VFO, QSD e futuramente o QSE )  tem  vídeos de teste.
