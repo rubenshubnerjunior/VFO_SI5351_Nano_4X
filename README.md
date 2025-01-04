@@ -67,6 +67,6 @@
   - https://www.youtube.com/watch?v=Rc6pbZAcLpk
   
 
-#### Sugestões sempre ajudam.
+#### Este documento trata-se de anotações de pesquisa sobre o SDR e por não ser uma Verdade Absoluta correções e melhorias sempre são bem vindas.
 ### 73's  PY2 RHJ     ID DMR:7245251
 
