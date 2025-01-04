@@ -58,7 +58,7 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/QSD_Editado.jpg)
   #### No circuito do QSD para demoduladar o sinal de RF foi usado o mixer Tayloe.
   #### O Esquema encontra-se na pasta esquemas.
-  #### Testes:
+  
   #### Explicação do QSD:
  - https://www.youtube.com/watch?v=EsmPDjM7D9w
   #### Testes com o TinySA:
