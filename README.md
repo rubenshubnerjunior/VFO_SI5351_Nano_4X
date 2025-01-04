@@ -9,6 +9,7 @@
 #### Os sinais I & Q estão dentro da faixa da placa de som ( normalmente 48 Khz mas se for mais é melhor).
 #### QSD--> Quadrature Signal Decoder.
 #### QSE--> Quadrature signal Encoder.
+#### No final de cada etapa ( VFO, QSD e futuramente o QSE )  tem  vídeos de teste.
 # VFO
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/VFO_5351_4X.jpg)
 #### Basicamente temos o módulo SI 5351 que é comandado através do Arduino Nano usando o protocolo I2C.
