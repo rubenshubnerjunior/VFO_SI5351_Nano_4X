@@ -1,6 +1,6 @@
 ### Este projeto visa:
 #### Construir um gerador de frequência em quadratura ( 0º e 90° ) na faixa de 3 a 30 Mhz.
-#### Construir um circuito QSD para demodular sinais de RF modulados.
+#### Construir um circuito QSD para demodular sinais de RF modulados em AM, FM e SSB.
 #### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
 #### Diagrama simplificado:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama2.jpg)
@@ -58,7 +58,7 @@
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/QSD_Editado.jpg)
   #### No circuito do QSD para demoduladar o sinal de RF foi usado o mixer Tayloe.
   #### O Esquema encontra-se na pasta esquemas.
-  #### Testes:
+  
   #### Explicação do QSD:
  - https://www.youtube.com/watch?v=EsmPDjM7D9w
   #### Testes com o TinySA:
