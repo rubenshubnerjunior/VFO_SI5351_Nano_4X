@@ -4,7 +4,7 @@
 #### Construir um circuito QSE para modular um sinal de RF ( em pesquisa...).
 #### Diagrama simplificado:
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Diagramas/diagrama2.jpg)
-#### O Hardware VFO fornece sinais em quadratura na frequência de recepção/transmissão desejada.
+#### O Hardware VFO fornece sinais em quadratura na frequência de recepção/transmissão desejada (controlado por um arduino nano).
 #### O Hardware QSD recebe o RF da antena e converte em sinais I & Q que vão para o computador através da placa de som.
 #### O Hardware QSE recebe os sinais I & Q do computador através da placa de som converte para RF e envia para a antena.
 #### Os sinais I & Q estão dentro da faixa da placa de som ( normalmente 48 Khz mas placas de 192 Khz são melhores ).
