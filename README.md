@@ -55,6 +55,7 @@
 #### Testes do VFO:
 - https://www.youtube.com/watch?v=RT_Q52dTLLc&t=126s
 # QSD 
+#### Hardware para executar a demodulação.
 - ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/QSD_Editado.jpg)
   #### No circuito do QSD para demoduladar o sinal de RF foi usado o mixer Tayloe.
   #### O Esquema encontra-se na pasta esquemas.
@@ -67,8 +68,15 @@
    - https://www.youtube.com/watch?v=dkrUPmy8qsQ
   #### Recepção AM:
   - https://www.youtube.com/watch?v=Rc6pbZAcLpk
-  
+# QSE
+#### Hardware para executar a Modulação.
+#### Para usar o HDSDR no modo transmissão foi preciso modificar uma DLL veja o vídeo:
+- https://www.youtube.com/watch?v=wrtzsCQlcew
+#### O circuito do QSE ainda está em pesquisa...
 
+  
 #### Este documento trata-se de anotações de pesquisa sobre o SDR e por não ser uma Verdade Absoluta correções e melhorias sempre são bem vindas.
+
+### E-mail: rubenshubnerjunior2010@gmail.com
 ### 73's  PY2 RHJ     ID DMR:7245251
 
