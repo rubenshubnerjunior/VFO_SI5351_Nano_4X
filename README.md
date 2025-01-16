@@ -72,6 +72,8 @@
 #### Hardware para executar a Modulação.
 #### Para usar o HDSDR no modo transmissão foi preciso modificar uma DLL veja o vídeo:
 - https://www.youtube.com/watch?v=wrtzsCQlcew
+#### Configuração das placas de som:
+- ![alt text](https://github.com/rubenshubnerjunior/VFO_SI5351_Nano_4X/blob/main/Fotos/HDSDR_Card.jpg
 #### O circuito do QSE ainda está em pesquisa...
 
   
