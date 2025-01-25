@@ -33,7 +33,7 @@ unsigned long time3 = 0;
 
 
 
-static const uint32_t bandStart = 3000000;     // Inicio da banda em HF (HZ)
+static const uint32_t bandStart = 500000;     // Inicio da banda em HF (HZ)
 static const uint32_t bandEnd =   30000000;    // Fim da banda HF (HZ)
 static const uint32_t pll_min =   600000000;     //Frequencia minima do PLL (HZ)
 static const uint32_t pll_max =   900000000;     //Frequencia maxima do PLL (HZ)
@@ -103,7 +103,7 @@ void leSerial()
       CATcmd[cat_ptr] = '\0'; // terminate the array
       cat_ptr = 0;
 
-      //monitorI2C("-------------->" + (String)CATcmd); //**************** Monitoracao no Arduino Escravo**********************
+      monitorI2C("-------------->" + (String)CATcmd); //**************** Monitoracao no Arduino Escravo**********************
 
       analyseCATcmd();
 
@@ -483,7 +483,7 @@ void setup() {
 
   Serial.begin(115200);
 
-  //Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
+  Wire.begin(); // Monitoracao para Debug no arduino escravo I2C
 
   lcd.init();
   lcd.backlight();
