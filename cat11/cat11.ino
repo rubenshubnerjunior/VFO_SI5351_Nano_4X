@@ -255,12 +255,12 @@ void Command_GETFreqA()
   sprintf(Catbuffer, "FA%02u%03u", g, m);
   Serial.print(Catbuffer);
 
-  //monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
+  monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
 
   sprintf(Catbuffer, "%03u%03u;", k, h);
   Serial.print(Catbuffer);
 
-  //monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
+  monitorI2C(Catbuffer); //**************** Monitoracao no Arduino Escravo**********************
 }
 
 //===========Ajusta a faixa conforme a frequencia================================
