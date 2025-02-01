@@ -4,10 +4,20 @@ Esta DLL tem as seguintes ações:
 
 a) Configura o HDSDR para receber do QSD através da placa de audio os  sinais I & Q através da placa de som.
 b) Configura o HDSDR para entrar no modo TX e enviar via placa de áudio os sinais I & Q que será usado no QSE
-O controle de frequência do VFO ainda está sendo feita pelo Ominirig.
+c) Ajustando a frequência no programa HDSDR o VFO será ajustado.
+d) Ajustando a frequência no VFO pelo encoder a frequência do programa HDSDR será ajustada.
 
+Com esta DLL não precisa usar o Omnirig para estas funções.
+
+============================//==========================
 This DLL has the following actions:
-a) Configures the HDSDR to receive the I & Q signals from the QSD via the audio card.
-b) Configures the HDSDR to enter TX mode and send the I & Q signals via the audio card that will be used in the QSE
-The VFO frequency control is still being done by Ominirig.
 
+a) Configures the HDSDR to receive the I & Q signals from the QSD via the audio card.
+
+b) Configures the HDSDR to enter TX mode and send the I & Q signals via the audio card that will be used in the QSE.
+
+c) Adjusting the frequency in the HDSDR program will adjust the VFO.
+
+d) Adjusting the frequency in the VFO via the encoder will adjust the frequency of the HDSDR program.
+
+With this DLL you do not need to use Omnirig for these functions.
