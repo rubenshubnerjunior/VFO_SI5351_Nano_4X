@@ -79,6 +79,6 @@
 
 #### Este documento trata-se de anotações de pesquisa sobre o SDR e por não ser uma Verdade Absoluta correções e melhorias sempre são bem vindas.
 
-### E-mail: rubenshubnerjunior2010@gmail.com
+
 ### 73's  PY2 RHJ     ID DMR:7245251
 
